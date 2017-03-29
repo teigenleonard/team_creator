@@ -10,19 +10,24 @@ function init() {
 // EVENT LISTENERS
 function addEventListeners() {
   // generate button
-  $('#inputDiv').on('click', '#generate', getNewTeams);
+  $('#generateTeams').on('click', getNewTeams);
   // old teams button
-  $('#inputDiv').on('click', '#showOld', getHistoricalTeams);
+  $('#showHistory').on('click', getHistoricalTeams);
 }
 // DOM FUNCTIONS
 // display newly generated teams
 function displayNewTeams(teamsArray) {
+  $el = $('#outputDiv');
+  $el.empty();
+  $el.append('<h1>New Teams</h1>');
 
 }
 
 // display historical teams
 function displayHistoricalTeams(teamsArray) {
-
+  $el = $('#outputDiv');
+  $el.empty();
+  $el.append('<h1>Historical Teams</h1>');
 }
 
 // AJAX CALLS
@@ -33,10 +38,11 @@ function getNewTeams() {
     url: '/new',
     success: function(res) {
       console.log('server response on /new route:', res);
+      // dispaly new teams on the DOM
       displayNewTeams(res);
-    }
-  });
-}
+    } // end success
+  }); // end ajax
+} // end getNewTeams()
 
 // get historical teams
 function getHistoricalTeams() {
@@ -45,7 +51,8 @@ function getHistoricalTeams() {
     url: '/old',
     success: function(res) {
       console.log('server response on /old route:', res);
+      // display old teams on the DOM
       displayHistoricalTeams(res);
-    }
-  });
-}
+    } // end success
+  }); // end ajax
+} // end getHistoricalTeams()
