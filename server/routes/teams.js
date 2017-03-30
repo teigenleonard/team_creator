@@ -10,7 +10,7 @@ var TeamSchema = mongoose.Schema({
   date: Date
 });
 
-var Teams = mongoose.model('teams', TeamsSchema);
+var Teams = mongoose.model('teams', TeamSchema);
 
 router.get("/", function(req, res) {
     teams.find(function(err, allTeams) {

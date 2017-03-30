@@ -9,23 +9,25 @@ var historicalTest = [team1, team2, team3, team4, team4, team3, team2, team1, te
 $(document).ready(function() {
   // REMOVE THE NEXT 2 FUNCTION CALLS WHEN READY TO TEST FULL FUNCTIONALITY
   // JUST USING THIS TO TEST THE REST OF CLIENT.JS FUNCTIONALITY
-  displayTeams(historicalTest, true);
+  //displayTeams(historicalTest, true);
   //displayTeams(testArray, false);
   // UNCOMMENT init() WHEN READY TO TEST FULL FUNCTIONALITY
-  //init();
-});
-
-// INITIALIZE THE DOCUMENT
-function init() {
   addEventListeners();
-}
+});
 
 // EVENT LISTENERS
 function addEventListeners() {
   // generate button
-  $('#generateTeams').on('click', getNewTeams);
+  $('#generateTeams').on('click', function(event) {
+    event.preventDefault();
+    getNewTeams();
+  });
+
   // old teams button
-  $('#showHistory').on('click', getHistoricalTeams);
+  $('#showHistory').on('click', function(event) {
+    event.preventDefault();
+    getHistoricalTeams();
+  });
 }
 
 // DOM FUNCTIONS
@@ -33,8 +35,7 @@ function addEventListeners() {
 function displayTeams(teamsArray, isHistoricalData) {
   // decide on heading text based on which set of data we're receiving
   var heading = isHistoricalData ? (heading = 'Historical Teams') : (heading = 'New Teams');
-  var teams = teamsArray.length;
-  console.log(teamsArray);
+  var teams = teamsArray.length; // total number of teams to display
   var teamsPerRow = 4;
   var rows = Math.ceil(teams / teamsPerRow);
   var teamNumber = 1;
@@ -67,9 +68,11 @@ function displayTeams(teamsArray, isHistoricalData) {
 // AJAX CALLS
 // get newly generated teams
 function getNewTeams() {
+  console.log('numTeams:', $('#numberOfTeams').val());
   $.ajax({
     type: 'GET',
-    url: '/new',
+    url: '/new/' + $('#numberOfTeams').val(),
+    //data: {numTeams: $('#numberOfTeams').val()},
     success: function(res) {
       console.log('server response on /new route:', res);
       // dispaly new teams on the DOM
@@ -81,6 +84,7 @@ function getNewTeams() {
 
 // get historical teams
 function getHistoricalTeams() {
+  console.log('show history clicked');
   $.ajax({
     type: 'GET',
     url: '/old',

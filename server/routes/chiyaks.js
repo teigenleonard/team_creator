@@ -12,8 +12,10 @@ var ChiyaksSchema = mongoose.Schema({
 var Chiyaks = mongoose.model('chiyaks', ChiyaksSchema);
 
 
-router.get("/", function(req, res) {
-    chiyaks.find(function(err, allChiyaks) {
+router.get("/:numTeams", function(req, res) {
+    var numTeams = req.params.numTeams;
+    console.log(numTeams);
+    Chiyaks.find(function(err, allChiyaks) {
         if (err) {
             console.log(err);
             res.sendStatus(500);
