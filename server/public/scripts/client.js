@@ -9,10 +9,10 @@ var historicalTest = [team1, team2, team3, team4, team4, team3, team2, team1, te
 $(document).ready(function() {
   // REMOVE THE NEXT 2 FUNCTION CALLS WHEN READY TO TEST FULL FUNCTIONALITY
   // JUST USING THIS TO TEST THE REST OF CLIENT.JS FUNCTIONALITY
-  //displayTeams(historicalTest, true);
-  displayTeams(testArray, false);
+  displayTeams(historicalTest, true);
+  //displayTeams(testArray, false);
   // UNCOMMENT init() WHEN READY TO TEST FULL FUNCTIONALITY
-  // init();
+  //init();
 });
 
 // INITIALIZE THE DOCUMENT
@@ -33,23 +33,35 @@ function addEventListeners() {
 function displayTeams(teamsArray, isHistoricalData) {
   // decide on heading text based on which set of data we're receiving
   var heading = isHistoricalData ? (heading = 'Historical Teams') : (heading = 'New Teams');
+  var teams = teamsArray.length;
+  console.log(teamsArray);
+  var teamsPerRow = 4;
+  var rows = Math.ceil(teams / teamsPerRow);
+  var teamNumber = 1;
   $el = $('#outputDiv');
   $el.empty(); // empty the outputDiv
   $el.append('<h1>' + heading + '</h1>'); // display the appropriate header
-  for (var i = 0; i < teamsArray.length; i++) {
-    var teamNumber = i + 1; // 1-index team numbers
-    var team = teamsArray[i]; // pull individual team out of teamsArray
-    // each team will be displayed in its own table
-    $el.append('<div class="col-xs-3"><table class="table"></table></div>');
-    var $table = $el.children().last().children().first();
-    // table header displays "Team #"
-    $table.append('<thead><tr><th>Team ' + teamNumber + '</th></tr></thead><tbody></tbody>');
-    // each team member is displayed on their own row
-    team.forEach(function(person) {
-      var name = person.first + ' ' + person.last;
-      $table.append('<tr><td>' + name + '</tr></td>');
-    });
-  } // end loop through teamsArray
+  while (rows > 0) {
+    $el.append('<div class="row"></div>');
+    var $row = $el.children().last();
+    var count = 0;
+    while (count < teamsPerRow && teamNumber <= teams) { // if we still have teams to print, continue
+      var team = teamsArray[teamNumber - 1]; // pull individual team out of teamsArray (zero indexed)
+      // create a table to hold the team that spans a quarter of the page
+      $row.append('<div class="col-xs-3"><table class="table table-bordered table-striped"></table></div>');
+      var $table = $row.children().last().children().first();
+      // table header displays "Team #"
+      $table.append('<thead><tr><th>Team ' + teamNumber + '</th></tr></thead><tbody></tbody>');
+      // each team member is displayed on their own table row
+      team.forEach(function(person) {
+        var name = person.first + ' ' + person.last;
+        $table.append('<tr><td>' + name + '</tr></td>');
+      });
+      count++; // increment counter for how many teams are displayed in the current row
+      teamNumber++; // increment team counter to display in table header & verify we have not reached the end of the array
+    } // end teamsPerRow hile-loop
+    rows--; // decrement rows counter
+  } // end rows while-loop
 }
 
 // AJAX CALLS
