@@ -4,9 +4,13 @@ var team2 = [{first: 'Craig', last: 'Baird'}, {first: 'Lisa', last: 'Schoofs'}, 
 var team3 = [{first: 'Logan', last: 'Kelly'}, {first: 'Keith', last: 'Tomlinson'}, {first: 'Anna', last: 'Springfield'}, {first: 'Olga', last: 'Engels'}];
 var team4 = [{first: 'Y Paul', last: 'Sussman'}, {first: 'Bri', last: 'Dickman'}, {first: 'Kevin', last: 'Dahlberg'}, {first: 'Erin', last: 'Kinnen'}];
 var testArray = [team1, team2, team3, team4];
+var historicalTest = [team1, team2, team3, team4, team4, team3, team2, team1, team2, team3, team4, team1, team3, team2, team1, team4];
 
 $(document).ready(function() {
-  displayNewTeams(testArray);
+  // REMOVE THIS FUNCTION CALL WHEN READY TO TEST FULL FUNCTIONALITY
+  // JUST USING THIS TO TEST THE REST OF CLIENT.JS FUNCTIONALITY
+  displayHistoricalTeams(historicalTest);
+  // displayNewTeams(testArray);
   // UNCOMMENT init() WHEN READY TO TEST FULL FUNCTIONALITY
   // init();
 });
@@ -29,22 +33,60 @@ function displayNewTeams(teamsArray) {
   $el = $('#outputDiv');
   $el.empty();
   $el.append('<h1>New Teams</h1>');
-  for (var i = 0; i < teamsArray.length; i++) {
-    var teamNumber = i + 1;
-    console.log('Team', teamNumber, teamsArray[i]);
-    $el.append('<table class="table"></table>');
-    $el.children().last().append('<thead><tr><th>Team ' + teamNumber + '</th></tr></thead>');
-  }
-}
+  displayTeams($el, teamsArray);
+  // for (var i = 0; i < teamsArray.length; i++) {
+  //   var teamNumber = i + 1; // 1-index team numbers
+  //   var team = teamsArray[i]; // pull individual team out of teamsArray
+  //   // each team will be displayed in its own table
+  //   $el.append('<div class="col-xs-3"><table class="table"></table></div>');
+  //   var $table = $el.children().last().children().first();
+  //   // table header displays "Team #"
+  //   $table.append('<thead><tr><th>Team ' + teamNumber + '</th></tr></thead><tbody></tbody>');
+  //   // each team member is displayed on their own row
+  //   team.forEach(function(person) {
+  //     var name = person.first + ' ' + person.last;
+  //     $table.append('<tr><td>' + name + '</tr></td>');
+  //   });
+  // } // end loop through teamsArray
+} // end displayNewTeams()
 
 // display historical teams
 function displayHistoricalTeams(teamsArray) {
   $el = $('#outputDiv');
   $el.empty();
   $el.append('<h1>Historical Teams</h1>');
-  for (var i = 1; i <= teamsArray.length; i++) {
-      console.log(teamsArray[i]);
-  }
+  displayTeams($el, teamsArray);
+  // for (var i = 0; i < teamsArray.length; i++) {
+  //   var teamNumber = i + 1; // 1-index team numbers
+  //   var team = teamsArray[i]; // pull individual team out of teamsArray
+  //   // each team will be displayed in its own table
+  //   $el.append('<div class="col-xs-3"><table class="table"></table></div>');
+  //   var $table = $el.children().last().children().first();
+  //   // table header displays "Team #"
+  //   $table.append('<thead><tr><th>Team ' + teamNumber + '</th></tr></thead><tbody></tbody>');
+  //   // each team member is displayed on their own row
+  //   team.forEach(function(person) {
+  //     var name = person.first + ' ' + person.last;
+  //     $table.append('<tr><td>' + name + '</tr></td>');
+  //   });
+  // } // end loop through teamsArray
+}
+
+function displayTeams($el, teamsArray) {
+  for (var i = 0; i < teamsArray.length; i++) {
+    var teamNumber = i + 1; // 1-index team numbers
+    var team = teamsArray[i]; // pull individual team out of teamsArray
+    // each team will be displayed in its own table
+    $el.append('<div class="col-xs-3"><table class="table"></table></div>');
+    var $table = $el.children().last().children().first();
+    // table header displays "Team #"
+    $table.append('<thead><tr><th>Team ' + teamNumber + '</th></tr></thead><tbody></tbody>');
+    // each team member is displayed on their own row
+    team.forEach(function(person) {
+      var name = person.first + ' ' + person.last;
+      $table.append('<tr><td>' + name + '</tr></td>');
+    });
+  } // end loop through teamsArray
 }
 
 // AJAX CALLS
