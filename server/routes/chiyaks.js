@@ -9,7 +9,34 @@ var ChiyaksSchema = mongoose.Schema({
 });
 
 
-var chiyaks = mongoose.model('chiyaks', ChiyaksSchema);
+var Chiyaks = mongoose.model('chiyaks', ChiyaksSchema);
 
+
+router.get("/", function(req,res){
+  //Get all employees
+  chiyaks.find(function(err, allChiyaks){
+    if(err){
+      console.log(err);
+      res.sendStatus(500);
+    }
+    res.send(allChiyaks);
+  });
+});
+
+
+router.post("/", function(req,res){
+
+  var chiyak = new Chiyaks();
+  chiyak.first = req.body.first;
+  chiyak.last = req.body.last;
+  employee.save(function(err, savedChiyak){
+    if(err){
+      console.log(err);
+      res.sendStatus(500);
+    }
+
+    res.send(savedChiyak);
+  });
+});
 
 module.exports = router;
