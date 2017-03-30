@@ -12,9 +12,12 @@ var bodyParser = require("body-parser");
 var path = require("path");
 
 //CC module for data initialization
-var createData = require('./routes/initialData.js');
+//var createData = require('./routes/initialData.js');
 
 //Route Imports
+var randomizer = require('./routes/randomizer.js');
+var chiyaks = require('./routes/chiyaks.js');
+var teams = require('./routes/teams.js');
 
 //Database Variables
 var mongoose = require("mongoose");
@@ -32,7 +35,7 @@ MongoDB.once("open", function(){
 });
 
 
-createData();
+//createData();
 
 //Set the port
 app.set("port", (process.env.PORT || 5000));
@@ -45,6 +48,8 @@ app.use(express.static("server/public/"));
 app.get("/", function(req,res){
   res.sendFile(path.resolve("server/public/views/index.html"));
 });
+app.use('/new', chiyaks);
+app.use('/old', teams);
 
 //Listen
 app.listen(app.get("port"), function(){
