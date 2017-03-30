@@ -10,15 +10,26 @@ var router = express.Router();
 // !!! Appending this into DOM will require a for loop !!!
 // ***
 
-// *** INPUTS
+// *** INPUTS !!!
 // students will be stored as an array already
 var studentArray;
+var studentArray = require("/initialData.js");
+console.log(studentArray);
+
 // number of teams desired will be stored already
 var numTeams;
-// ***
+var numTeams = require("./public/scripts/client.js");
+console.log(numTeams);
+// *** !!!
 
-studentArray = ["alice", "bob", "chris", "david", "elaine", "frank", "george", "herman", "isaac", "james", "kieran", "lyle", "madison", "nate", "ophelia", "paul", "quinn"];
-numTeams = 3;
+// *** COMPLETE FUNCTION:
+function generateNewTeam()
+{
+  shuffleArray();
+  createTeamsArray();
+  console.log(newTeams);
+}
+// ***
 
 // *** SUB-FUNCTION #1
 // * randomize student order within studentArray
@@ -98,12 +109,6 @@ function createTeamsArray()
 }
 // ***
 
-// runs to test functionality *** *** ***
-shuffleArray(studentArray);
-createTeamsArray(studentArray);
-console.log(newTeams);
-// runs to test functionality *** *** ***
-
 // *** WARNING
 // !!! Returns "newTeams" array, to be appended to DOM; !!!
 // !!! appending this into DOM will require a for loop !!!
@@ -113,4 +118,4 @@ console.log(newTeams);
 // *** Randomizer function ***
 // ***************************
 
-module.exports = router;
+module.exports = generateNewTeam;
