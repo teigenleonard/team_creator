@@ -13,7 +13,6 @@ var Chiyaks = mongoose.model('chiyaks', ChiyaksSchema);
 
 
 router.get("/", function(req,res){
-  //Get all employees
   chiyaks.find(function(err, allChiyaks){
     if(err){
       console.log(err);
