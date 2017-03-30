@@ -12,28 +12,26 @@ var router = express.Router();
 
 // *** INPUTS !!!
 // students will be stored as an array already
-var studentArray;
-var studentArray = require("/initialData.js");
-console.log(studentArray);
+// var studentArray = require("./initialData.js");
+// console.log(studentArray);
 
 // number of teams desired will be stored already
-var numTeams;
-var numTeams = require("./public/scripts/client.js");
-console.log(numTeams);
+//var numTeams = require("./public/scripts/client.js");
+//console.log(numTeams);
 // *** !!!
 
 // *** COMPLETE FUNCTION:
-function generateNewTeam()
-{
-  shuffleArray();
-  createTeamsArray();
+function generateNewTeam(numTeams, studentArray) {
+  studentArray = shuffleArray(studentArray);
+  var newTeams = createTeamsArray(numTeams, studentArray);
   console.log(newTeams);
+  return newTeams;
 }
 // ***
 
 // *** SUB-FUNCTION #1
 // * randomize student order within studentArray
-function shuffleArray()
+function shuffleArray(studentArray)
 {
   // placeholder variable
   var temp;
@@ -50,7 +48,7 @@ function shuffleArray()
     studentArray[j] = temp;
   }
   // prove it works
-  console.log(studentArray);
+  return studentArray;
 }
 // ***
 
@@ -58,10 +56,10 @@ function shuffleArray()
 // * take studentArray and chop in a loop:
 
 // a new array of arrays
-var newTeams = [];
 
-function createTeamsArray()
-{
+
+function createTeamsArray(numTeams, studentArray) {
+  var newTeams = [];
   // how many would be in each team if even
   var howMany = Math.floor(studentArray.length / numTeams);
 
@@ -69,8 +67,7 @@ function createTeamsArray()
   var studentsInFunction = studentArray;
 
   // for loop to go through each team item within newTeams
-  for(var i = 0; i < numTeams; i++)
-  {
+  for(var i = 0; i < numTeams; i++) {
     // set each new team empty initially
     newTeams[i] = [];
 
@@ -105,7 +102,7 @@ function createTeamsArray()
       }
     }
   }
-
+  return newTeams;
 }
 // ***
 
