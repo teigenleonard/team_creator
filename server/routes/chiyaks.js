@@ -19,7 +19,7 @@ router.get("/:numTeams", function(req, res) {
     console.log(numTeams);
     Chiyaks.find(function(err, allChiyaks) {
         if (err) {
-            console.log(err);
+            console.log('get chiyaks:', err);
             res.sendStatus(500);
         }
         teams = randomizer(numTeams, allChiyaks);
@@ -33,9 +33,9 @@ router.post("/", function(req, res) {
     var chiyak = new Chiyaks();
     chiyak.first = req.body.first;
     chiyak.last = req.body.last;
-    Chiyaks.save(function(err, savedChiyak) {
+    chiyak.save(function(err, savedChiyak) {
         if (err) {
-            console.log(err);
+            console.log('post chiyaks:', err);
             res.sendStatus(500);
         }
 

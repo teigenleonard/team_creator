@@ -65,6 +65,15 @@ function displayTeams(teamsArray, isHistoricalData) {
   } // end rows while-loop
 }
 
+function displayHistoricalTeams(historicalArray) {
+  console.log(historicalArray);
+  for (var i = 0; i < historicalArray.length; i++) {
+    var currentTeamSet = historicalArray[i];
+    console.log('current team set:', currentTeamSet);
+    displayTeams(currentTeamSet.teamsArray, true);
+  }
+}
+
 // AJAX CALLS
 // get newly generated teams
 function getNewTeams() {
@@ -78,6 +87,7 @@ function getNewTeams() {
       // dispaly new teams on the DOM
       // res = [[{Team1-Member1}, {T1-M2}, {T1-M3}], [{Team2-Member1}, {T2-M2}, {T2-M3}], [team3], [team4]];
       displayTeams(res, false);
+      postTeam(res);
     } // end success
   }); // end ajax
 } // end getNewTeams()
@@ -91,7 +101,19 @@ function getHistoricalTeams() {
     success: function(res) {
       console.log('server response on /old route:', res);
       // display old teams on the DOM
-      displayTeams(res, true);
+      //displayTeams(res, true);
+      displayHistoricalTeams(res);
     } // end success
   }); // end ajax
 } // end getHistoricalTeams()
+
+function postTeam(teamsArray) {
+  $.ajax({
+    type: 'POST',
+    url: '/old',
+    data: {teamsArray: teamsArray},
+    success: function(res) {
+      console.log('we survived and posted:', res);
+    }
+  });
+}

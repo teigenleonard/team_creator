@@ -4,16 +4,14 @@ var router = express.Router();
 var mongoose = require('mongoose');
 
 var TeamSchema = mongoose.Schema({
-  teamnumber: Number,
-  first : String,
-  last: String,
-  date: Date
+  date: Date,
+  teamsArray: Array
 });
 
 var Teams = mongoose.model('teams', TeamSchema);
 
 router.get("/", function(req, res) {
-    teams.find(function(err, allTeams) {
+    Teams.find(function(err, allTeams) {
         if (err) {
             console.log(err);
             res.sendStatus(500);
@@ -24,18 +22,14 @@ router.get("/", function(req, res) {
 
 
 router.post("/", function(req, res) {
-
-    var team = new Teams();
-    team.teamnumber = req.body.teamnumber;
-    team.first = req.body.first;
-    team.last = req.body.last;
-    team.date = req.body.date;
-    team.save(function(err, savedTeam) {
+    var teamsToSave = new Teams();
+    teamsToSave.date = new Date();
+    teamsToSave.teamsArray = req.body.teamsArray;
+    teamsToSave.save(function(err, savedTeam) {
         if (err) {
-            console.log(err);
+            console.log('error posting teams', err);
             res.sendStatus(500);
         }
-
         res.send(savedTeam);
     });
 });
