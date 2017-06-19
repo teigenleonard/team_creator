@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var randomizer = require('./randomizer.js');
 
 var mongoose = require('mongoose');
 
@@ -12,13 +13,17 @@ var ChiyaksSchema = mongoose.Schema({
 var Chiyaks = mongoose.model('chiyaks', ChiyaksSchema);
 
 
-router.get("/", function(req, res) {
-    chiyaks.find(function(err, allChiyaks) {
+router.get("/:numTeams", function(req, res) {
+    var numTeams = parseInt(req.params.numTeams);
+    var teams = [];
+    console.log(numTeams);
+    Chiyaks.find(function(err, allChiyaks) {
         if (err) {
-            console.log(err);
+            console.log('get chiyaks:', err);
             res.sendStatus(500);
         }
-        res.send(allChiyaks);
+        teams = randomizer(numTeams, allChiyaks);
+        res.send(teams);
     });
 });
 
@@ -30,7 +35,7 @@ router.post("/", function(req, res) {
     chiyak.last = req.body.last;
     chiyak.save(function(err, savedChiyak) {
         if (err) {
-            console.log(err);
+            console.log('post chiyaks:', err);
             res.sendStatus(500);
         }
 

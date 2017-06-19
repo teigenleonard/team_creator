@@ -6,7 +6,7 @@ var ChiyakSchema = mongoose.Schema({
   last: String,
 });
 
-var Chiyak = mongoose.model("chiyaks", ChiyakSchema);
+//var Chiyak = mongoose.model("chiyaks", ChiyakSchema);
 
 var TeamSchema = mongoose.Schema({
   teamnumber: Number,
@@ -15,7 +15,7 @@ var TeamSchema = mongoose.Schema({
   date: Date
 });
 
-var Team = mongoose.model("teams", TeamSchema);
+//var Team = mongoose.model("teams", TeamSchema);
 
 var chiCohort = [{first: 'Teigen', last: 'Leonard'},
                 {first: 'Topher', last: 'Keller'},
