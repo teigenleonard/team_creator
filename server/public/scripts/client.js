@@ -10,14 +10,14 @@ $(document).ready(function() {
   // REMOVE THE NEXT 2 FUNCTION CALLS WHEN READY TO TEST FULL FUNCTIONALITY
   // JUST USING THIS TO TEST THE REST OF CLIENT.JS FUNCTIONALITY
   displayTeams(historicalTest, true);
-  //displayTeams(testArray, false);
+  displayTeams(testArray, false);
   // UNCOMMENT init() WHEN READY TO TEST FULL FUNCTIONALITY
   //init();
 });
 
 // INITIALIZE THE DOCUMENT
 function init() {
-  addEventListeners();
+  // addEventListeners();
 }
 
 // EVENT LISTENERS
@@ -51,7 +51,7 @@ function displayTeams(teamsArray, isHistoricalData) {
       $row.append('<div class="col-xs-3"><table class="table table-bordered table-striped"></table></div>');
       var $table = $row.children().last().children().first();
       // table header displays "Team #"
-      $table.append('<thead><tr><th>Team ' + teamNumber + '</th></tr></thead><tbody></tbody>');
+      $table.append('<thead><tr><th><span class= "glyphicon glyphicon-user"></span>  Team ' + teamNumber + '</th></tr></thead><tbody></tbody>');
       // each team member is displayed on their own table row
       team.forEach(function(person) {
         var name = person.first + ' ' + person.last;

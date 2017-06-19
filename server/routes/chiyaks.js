@@ -28,7 +28,7 @@ router.post("/", function(req, res) {
     var chiyak = new Chiyaks();
     chiyak.first = req.body.first;
     chiyak.last = req.body.last;
-    employee.save(function(err, savedChiyak) {
+    chiyak.save(function(err, savedChiyak) {
         if (err) {
             console.log(err);
             res.sendStatus(500);
